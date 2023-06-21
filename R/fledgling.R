@@ -287,8 +287,8 @@ paste_news_lines <- function(lines, header_level) {
         paste_news_lines(.x, header_level = header_level + 1)
       )
     )
-    paste(lines, collapse = "\n\n")
-  } else {
-    paste(lines, collapse = "\n")
   }
+
+  # Always separate lines with empty line
+  paste(lines, collapse = "\n\n")
 }

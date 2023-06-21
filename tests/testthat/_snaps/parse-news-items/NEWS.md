@@ -1,18 +1,35 @@
 <!-- NEWS.md is maintained by https://fledge.cynkra.com, contributors should not edit this file -->
 
-# fledge 0.0.1 (2023-01-23)
+# fledge 0.0.1
+
+## Breaking changes
+
+- Breaking change: drop support for Node 6.
+
+  BREAKING CHANGE: use JavaScript features not available in Node 6.
+
+### api
+
+- Breaking change: send an email to the customer when a product is shipped.
+
+## upkeep
+
+- Update rlang usage.
 
 ## Bug fixes
 
 - Prevent racing of requests.
 
   Introduce a request id and a reference to latest request. Dismiss
+
   incoming responses other than from latest request.
 
   Remove timeouts which were used to mitigate the racing issue but are
+
   obsolete now.
 
   Reviewed-by: Z
+
   Refs: #123
 
 ## Features
@@ -22,8 +39,6 @@
 - Add Polish language.
 
 ### api
-
-- Breaking change: send an email to the customer when a product is shipped.
 
 - Breaking change: send an email to the customer when a product is shipped.
 
@@ -41,19 +56,7 @@
 
 - Correct spelling of CHANGELOG.
 
-## Breaking changes
+## Uncategorized
 
-- Breaking change: drop support for Node 6.
-
-  BREAKING CHANGE: use JavaScript features not available in Node 6.
-
-### api
-
-- Breaking change: send an email to the customer when a product is shipped.
-
-- Breaking change: send an email to the customer when a product is shipped.
-
-## upkeep
-
-- Update rlang usage.
+- Initial CRAN submission.
 

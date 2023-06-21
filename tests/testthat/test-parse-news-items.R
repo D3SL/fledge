@@ -1,4 +1,6 @@
 test_that("Can parse conventional commits", {
+  local_options(repos = NULL)
+
   withr::local_envvar("FLEDGE.EMPTY.DATE" = "blabla")
   repo <- withr::local_tempdir()
   withr::local_dir(repo)
@@ -11,6 +13,8 @@ test_that("Can parse conventional commits", {
     usethis::use_description(fields = list(Package = "fledge")),
     force = TRUE
   )
+
+  usethis::use_news_md()
 
   withr::local_envvar("FLEDGE_DATE" = "2023-01-23")
 
