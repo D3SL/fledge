@@ -196,7 +196,6 @@ write_fledgling <- function(fledgeling) {
     split(news_df, seq_len(nrow(news_df))),
     write_news_section
   )
-  news_lines <- unprotect_hashtag(news_lines)
 
   lines <- c(
     fledgeling[["preamble"]], "",
@@ -208,7 +207,7 @@ write_fledgling <- function(fledgeling) {
 write_news_section <- function(df) {
   if (df$section_state == "keep") {
     # remove the lines that will be re-added
-    raw <- sub("\n$", "", df$raw)
+    raw <- sub("\n$", "", df$raw) %>% unprotect_hashtag()
     return(raw)
   }
 
@@ -235,7 +234,7 @@ write_news_section <- function(df) {
   if (length(df$news[[1]]) == 1 && names(df$news[[1]]) == default_type()) {
     section_lines <- c(
       version_header, "",
-      paste(df$news[[1]][[1]], collapse = "\n"), ""
+      paste(unprotect_hashtag(df$news[[1]][[1]]), collapse = "\n"), ""
     )
   } else {
     if (isTRUE(df$h2)) {
@@ -270,11 +269,13 @@ format_news_subsections <- function(news_list, header_level) {
 
 paste_news_lines <- function(lines, header_level) {
   lines <- unlist(lines, recursive = FALSE)
+  lines <- unprotect_hashtag(lines)
 
   subsections_present <- (is_any_named(lines))
 
   if (!subsections_present) {
     lines <- gsub("^- ", "\n- ", lines)
+    lines <- gsub("^#", "\n#", lines)
     return(paste(lines, collapse = "\n"))
   }
 

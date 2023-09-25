@@ -6,6 +6,7 @@
 
 - Breaking change: drop support for Node 6.
   BREAKING CHANGE: use JavaScript features not available in Node 6.
+
 ### api
 
 - Breaking change: send an email to the customer when a product is shipped.
@@ -29,6 +30,7 @@
 ### lang
 
 - Add Polish language.
+
 ### api
 
 - Breaking change: send an email to the customer when a product is shipped.
