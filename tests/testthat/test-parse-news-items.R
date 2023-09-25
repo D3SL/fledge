@@ -8,13 +8,12 @@ test_that("Can parse conventional commits", {
   create_cc_repo(repo)
   messages <- get_top_level_commits_impl(since = NULL)$message
 
-  usethis::with_project(
-    repo,
-    usethis::use_description(fields = list(Package = "fledge")),
+  usethis::with_project(repo, {
+    usethis::use_description(fields = list(Package = "fledge"))
+    usethis::use_news_md()
+  },
     force = TRUE
   )
-
-  usethis::use_news_md()
 
   withr::local_envvar("FLEDGE_DATE" = "2023-01-23")
 

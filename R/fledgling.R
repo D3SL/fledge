@@ -200,7 +200,7 @@ write_fledgling <- function(fledgeling) {
 
   lines <- c(
     fledgeling[["preamble"]], "",
-    paste0(news_lines, collapse = "\n\n")
+    paste_n_lines_only(news_lines, n = 2)
   )
   brio::write_lines(lines, news_path())
 }
@@ -265,30 +265,43 @@ format_news_subsections <- function(news_list, header_level) {
     ),
   )
 
-  paste(lines, collapse = "\n\n")
+  paste_n_lines_only(lines, n = 1)
 }
 
 paste_news_lines <- function(lines, header_level) {
   lines <- unlist(lines, recursive = FALSE)
-  if (is_any_named(lines)) {
-    header_sign <- paste(rep("#", header_level), collapse = "")
-    sub_header <- function(x, header_sign) {
-      if (!nzchar(x)) {
-        ""
-      } else {
-        paste(header_sign, x, "\n\n")
-      }
-    }
-    lines <- purrr::imap_chr(
-      lines,
-      ~ sprintf(
-        "%s%s",
-        sub_header(.y, header_sign),
-        paste_news_lines(.x, header_level = header_level + 1)
-      )
-    )
+
+  subsections_present <- (is_any_named(lines))
+
+  if (!subsections_present) {
+    lines <- gsub("^- ", "\n- ", lines)
+    return(paste(lines, collapse = "\n"))
   }
 
-  # Always separate lines with empty line
-  paste(lines, collapse = "\n\n")
+  header_sign <- paste(rep("#", header_level), collapse = "")
+
+  lines <- purrr::imap_chr(
+    lines,
+    ~ sprintf(
+      "%s%s",
+      append_sub_header(.y, header_sign),
+      paste_news_lines(.x, header_level = header_level + 1)
+    )
+  )
+  # Always separate lines with an empty line only
+  paste_n_lines_only(lines, n = 1)
+}
+
+paste_n_lines_only <- function(x, n = 1) {
+  separator <- paste(rep("\n", n + 1), collapse = "")
+  string <- paste(x, collapse = separator)
+  gsub(sprintf(sprintf("\n{%s,}", n + 2)), separator, string)
+}
+
+append_sub_header <- function(x, header_sign) {
+  if (!nzchar(x)) {
+    ""
+  } else {
+    paste(header_sign, x, "\n\n")
+  }
 }

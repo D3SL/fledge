@@ -5,9 +5,7 @@
 ## Breaking changes
 
 - Breaking change: drop support for Node 6.
-
   BREAKING CHANGE: use JavaScript features not available in Node 6.
-
 ### api
 
 - Breaking change: send an email to the customer when a product is shipped.
@@ -19,17 +17,11 @@
 ## Bug fixes
 
 - Prevent racing of requests.
-
   Introduce a request id and a reference to latest request. Dismiss
-
   incoming responses other than from latest request.
-
   Remove timeouts which were used to mitigate the racing issue but are
-
   obsolete now.
-
   Reviewed-by: Z
-
   Refs: #123
 
 ## Features
@@ -37,19 +29,16 @@
 ### lang
 
 - Add Polish language.
-
 ### api
 
 - Breaking change: send an email to the customer when a product is shipped.
 
 - Allow provided config object to extend other configs.
-
   BREAKING CHANGE: `extends` key in config file is now used for extending other config files
 
 ## Chore
 
 - Breaking change: drop support for Node 6.
-
   BREAKING CHANGE: use JavaScript features not available in Node 6.
 
 ## Documentation
@@ -58,5 +47,5 @@
 
 ## Uncategorized
 
-- Initial CRAN submission.
+- Added a `NEWS.md` file to track changes to the package.
 
